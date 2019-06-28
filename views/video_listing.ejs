@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta tag description author for SEO -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive Design | Welcome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- style -->
+    <style>
+        .container-video{
+            text-align: center;
+        }
+        .container-video video{
+            width: 25%;
+            padding: 1px;
+            border: 1px solid white;
+        }
+        
+        hr{
+            width: 40%;
+        }
+        @media(max-width: 1024px){
+            .container-video{
+                display: grid;
+            }
+            .container-video video{
+                width: 70%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <!-- <div class="notification" style="text-align: center;background:mintcream;color: black;">Hello | Kumar</div> -->
+    <header>
+        <div class="container">
+            <!-- logo -->
+           <div id="branding">
+               <h1><span class="highlight">IIY</span>Software</h1>
+           </div>
+           <!-- nav bar -->
+           <nav class="topnav">
+               <ul>
+                   <li><a href= "#">Home</a></li>
+                   <li><a href= "#">About Us</a></li>
+                   <li><a href= "#">Videos</a></li>
+                   <li><a href= "#">Notes</a></li>
+                   <li><a href= "#">Quiz</a></li>
+                   <li><a href= "#">Test</a></li>
+                   
+               </ul>
+           </nav>
+        </div>
+    </header>
+    <div class="container-video">
+        <h3>Subject #1 <hr></h3>
+        <% video.forEach(function(data){ %>
+            <a href="#"><video src="<%- data %>" controls></video></a>
+        <% }) %>
+    </div>
+    <div class="container-video">
+        <h3>Subject #2 <hr></h3>
+        <% video.forEach(function(data){ %>
+            <a href="#"><video src="<%- data %>" controls></video></a>
+        <% }) %>
+    </div>
+    
+    
+
+
+    
+    
+    <!-- <footer>
+        <p>Kumar Design <i class="fa fa-heart" style="font-size:15px;color: red;"></i> Copyright &copy; 2019</p>
+    </footer> -->
+<script src="js/script.js"></script>
+<script>
+    
+</script>
+
+    
+</body>
+</html>

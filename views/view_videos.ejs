@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta tag description author for SEO -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive Design | Welcome</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+    <style>
+        .content > button{
+                font-size: 17px;
+                margin: 3px;
+                cursor: pointer;
+
+        }
+        video{
+            width:30%;
+            height: 10%;
+        }
+       .video-border{
+           text-decoration: none;
+           padding: 3px;
+           color: white;
+           display: flex;
+           }
+        .video-container{
+            text-align: center;
+            padding-left: 25%;    
+        }
+        
+
+
+    </style>
+</head>
+<body>
+    <!-- <div class="notification" style="text-align: center;background:mintcream;color: black;">Hello | Kumar</div> -->
+    <header>
+        <div class="container">
+            <!-- logo -->
+           <div id="branding">
+               <h1><span class="highlight">IIY</span>Software</h1>
+           </div>
+           <!-- nav bar -->
+           <nav class="topnav">
+               <ul>
+                   <li><a href= "#">Home</a></li>
+                   <li><a href= "#">About Us</a></li>
+                   <li><a href= "#">Videos</a></li>
+                   <li><a href= "#">Notes</a></li>
+                   <li><a href= "#">Quiz</a></li>
+                   <li><a href= "#">Test</a></li>
+                   
+               </ul>
+           </nav>
+        </div>
+    </header>
+
+    <div class="content" style="text-align: center;">
+        <h2 class="text1">Welcome Admin | View Videos</h2>
+        <button onclick="window.location.href='/admin'" style="background: green;">Home</button>
+        <button>View Student Details</button>
+        <button >View AboutUs</button>
+        <button>View Videos</button>
+        <button>View Notes</button>
+        <button>View Test</button>
+    </div>
+    <div style="text-align: center;margin-top:4%;font-size:20px;" class="video-container"> <%data.forEach(function(data){ %>
+        <a href="#" class="video-border"><video src="<%- data.video_location %>" controls></video><span style="color: red">{video_id:<%= data.video_id %>}</span>&nbsp;{class:<%= data.class %>} {subject:<%= data.subject %>}   </a>
+        <% }) %> </div>
+    <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+        <form action="/admin/view_videos/add" method="POST">
+            <input type="text" placeholder="enter class for eg: 5" name="class">
+            <input type="text" placeholder="enter subject for eg: maths" name="subject">
+            <input type="text" placeholder="enter video title for eg: alzebra" name="title">
+            <input type="text" placeholder="enter video location for eg: /video/videoname.mp4" name="location">
+            <button style="background: green;">Upload</button>
+        </form>
+
+        <form action="/admin/view_videos/delete" method="POST">
+            <input type="text" placeholder="enter video_id to delete video for eg: 1" name="video_id">
+            <button style="background: red;">Delete</button>
+        </form>
+
+</div>
+<br>
+    
+    
+    <!-- <footer>
+        <p>Kumar Design <i class="fa fa-heart" style="font-size:15px;color: red;"></i> Copyright &copy; 2019</p>
+    </footer> -->
+<script src="js/script.js"></script>
+    
+
+    
+</body>
+</html>
