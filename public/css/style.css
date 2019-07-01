@@ -95,7 +95,7 @@ header nav a:hover{
     background: green;
     border-radius: 10px;
     margin:20px;
-    opacity: .7;
+    opacity: .9;
 }
 
 #boxes .box{
@@ -172,6 +172,7 @@ footer{
     
 
 }
+
 .modal-content{
     width: 400px;
     height: 350px;
@@ -225,7 +226,6 @@ select{
 .button{
     width: 19%;
     margin: 0 auto;
-    margin-top: 10px;
     display: block;
     background-color: #33B8FF;
     text-decoration: none;
@@ -233,6 +233,9 @@ select{
     padding: 8px 15px;
     border-radius: 15px;
     font-size: 15px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
         
 }
 option{
