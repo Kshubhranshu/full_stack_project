@@ -2,9 +2,7 @@ document.addEventListener("click", function(){
     document.querySelector(".modal").style.display = "flex";
   });
 
-
-document.querySelector(".button").addEventListener("click",function() {
-    document.querySelector(".modal").style.display="none";
+document.querySelector(".register-btn").addEventListener("click",function() {
     document.querySelector(".modal2").style.display="flex";
 });
 
