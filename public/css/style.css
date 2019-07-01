@@ -313,7 +313,10 @@ option{
     
 
 }
-
+.modal-content2 input{
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
 .modal-content2{
     width: 400px;
     height: 350px;
