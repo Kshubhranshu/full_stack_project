@@ -5,6 +5,7 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 
+
 const app = express();
 app.set('view engine','ejs')
 app.use(bodyparser.urlencoded({extended:false}))
@@ -40,8 +41,17 @@ app.get('/', function(req, res) {
 });
 
 // ............................................................ADMIN SECTION...........................................................
-//route for admin dashboard
-    app.get('/admin',function(req,res){
+//route for admin login from index.html
+app.post("/admin/login",function (req,res) 
+{
+    let mobile = req.body.mobile;
+    let password = req.body.password;
+    if(mobile=="1234567890" && password=="admin"){
+    console.log(mobile,password);
+    res.redirect("/admin") };
+});
+
+app.get('/admin',function(req,res){
                 res.render('admin')
             });
             
@@ -66,9 +76,6 @@ app.post("/admin/view_aboutus/add",function (req,res)
         if(err) throw err;
         res.redirect("/admin/view_aboutus");
     })
-
-
-
 })
 
 //route for adding image in about us page
@@ -190,7 +197,6 @@ app.get('/test',function(req,res){
 
 //reading and writing into notes file
 var readme = fs.readFileSync('notes.txt', 'utf8')
-console.log(readme);
 app.get("/notes",function( 
     req,res){
     res.render('notes',{readme:readme})
