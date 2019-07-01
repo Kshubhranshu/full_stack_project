@@ -40,6 +40,24 @@ app.get('/', function(req, res) {
     res.render('index.html');
 });
 
+//route for user home page
+app.get('/home',function(req, res){
+    res.render('index');
+});
+
+//route for admin login from index.html
+app.post("/admin/login",function (req,res) 
+{
+    let mobile = req.body.mobile;
+    let password = req.body.password;
+    if(mobile=="1234567890" && password=="admin"){
+        res.redirect("/admin") 
+        console.log(mobile,password);}
+    else
+    {   //route for home page from index.html
+        res.redirect('/home')
+    }
+});
 // ............................................................ADMIN SECTION...........................................................
 //route for admin login from index.html
 app.post("/admin/login",function (req,res) 
@@ -47,8 +65,12 @@ app.post("/admin/login",function (req,res)
     let mobile = req.body.mobile;
     let password = req.body.password;
     if(mobile=="1234567890" && password=="admin"){
-    console.log(mobile,password);
-    res.redirect("/admin") };
+        res.redirect("/admin") 
+        console.log(mobile,password);}
+    else
+    {
+        res.render('index')
+    }
 });
 
 app.get('/admin',function(req,res){
@@ -64,7 +86,7 @@ app.get('/admin',function(req,res){
         if(err) throw err;
         console.log(result[0].image_location);
         res.render('view_aboutus',{temp:result[0].description,location:result[0].image_location})
-        })
+        });
     })
 
 //route for editing about us page
@@ -192,15 +214,17 @@ app.get('/test',function(req,res){
     res.render('test')
 });
 
-    
-//................................................USER SECTION ENDS..............................................................................
-
 //reading and writing into notes file
 var readme = fs.readFileSync('notes.txt', 'utf8')
 app.get("/notes",function( 
     req,res){
     res.render('notes',{readme:readme})
     })
+
+
+    
+//................................................USER SECTION ENDS..............................................................................
+
 
 // running server
 app.listen('2000',()=>{
