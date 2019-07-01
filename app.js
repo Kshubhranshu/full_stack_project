@@ -34,6 +34,11 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/images', express.static(__dirname + '/public/images'));
 app.use('/videos', express.static(__dirname + '/public/videos'));
 
+//route for index.html
+app.get('/', function(req, res) {
+    res.render('index.html');
+});
+
 // ............................................................ADMIN SECTION...........................................................
 //route for admin dashboard
     app.get('/admin',function(req,res){
@@ -47,8 +52,8 @@ app.use('/videos', express.static(__dirname + '/public/videos'));
         let sql = 'select * from aboutus'
         let query = connection.query(sql,function(err,result){
         if(err) throw err;
-        console.log(result);
-        res.render('view_aboutus',{temp:result[0].description})
+        console.log(result[0].image_location);
+        res.render('view_aboutus',{temp:result[0].description,location:result[0].image_location})
         })
     })
 
@@ -60,6 +65,21 @@ app.post("/admin/view_aboutus/add",function (req,res)
     connection.query(sql,function(err,result){
         if(err) throw err;
         res.redirect("/admin/view_aboutus");
+    })
+
+
+
+})
+
+//route for adding image in about us page
+app.post("/admin/view_aboutus/add_image",function (req,res) 
+{
+    var add_image_location = req.body.add_image_location;
+    let sql = `update aboutus set image_location = "${add_image_location}" where content_title="about"`;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/view_aboutus");
+
     })
 
 
@@ -136,8 +156,12 @@ app.get('/about',function(req,res){
     let query = connection.query(sql,function(err,result){
         if(err) throw err;
         console.log(result[0].description);
-        description=result[0].description;
-        res.render('about',{ temp:description})
+        console.log(result[0].image_location);
+        let description=result[0].description;
+        let location =result[0].image_location;
+        location = location.slice(1);
+        console.log(location)
+        res.render('about',{ temp:description, location:location })
     })
 })
 
