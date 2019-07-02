@@ -73,31 +73,22 @@
     <!-- register form -->
     <div class="modal">
         <div class="modal-content">
-            <a href="#" class="close">+</a>
+            <a href="" class="close">+</a>
             <div class="heading"><a href="#" class="register">Register</a> <span>|</span> <a href="#" class="login">Login</a></div>
             <img src="img/circled-user-male-skin-type-1-2.png" alt="">
-            <form action="">
-                    <select name="" id="">
+            <form action="/register" method="POST">
+                    <select  name="select_class" id="select_class" required>
                             <option value="Select Class">Select Class</option>
-                            <option value="">Class I</option>
-                            <option value="">Class II</option>
-                            <option value="">Class III</option>
-                            <option value="">Class IV</option>
+                            <option value="Class I">Class I</option>
+                            <option value="Class II">Class II</option>
+                            <option value="Class III">Class III</option>
+                            <option value="Class IV">Class IV</option>
                         </select>
-                <input type="text" placeholder="Name">
-                <input type="text" placeholder="Mobile No.">
-                <input type="text" placeholder="Password ">
-                
-                <!-- <select name="" id="">
-                        <option value="Select Class">Select Section</option>
-                        <option value="">A</option>
-                        <option value="">B</option>
-                        <option value="">C</option>
-                        <option value="">D</option>
-                    </select> -->
-                    <button class="button register-btn" type="submit">Submit</button>
-
-                </form>
+                <input type="text" placeholder="Name" required name="name">
+                <input type="tel" placeholder="Mobile No." maxlength="10" minlength="10" required name="mobile">
+                <input type="password" placeholder="Password " required name="password" minlength="6"> 
+                <button class="button register-btn" type="submit">Submit</button>
+            </form>
         </div>
     </div>
     
@@ -107,9 +98,9 @@
                 <a href="#" class="close2">+</a>
                 <div class="heading"><a href="#" class="register2">Register</a> <span>|</span> <a href="#" class="login2">Login</a></div>
                 <img src="img/circled-user-male-skin-type-1-2.png" alt="">
-                <form action="/admin/login" method="POST">
-                    <input type="text" placeholder="Mobile No." name="mobile" id="mobile">
-                    <input type="password" placeholder="Password" name="password" id="password">
+                <form action="/login" method="POST">
+                    <input type="tel" placeholder="Mobile No." name="mobile" size="10" minlength="10" required>
+                    <input type="password" placeholder="Password" name="password" id="password" required minlength="4">
                    <button class="button login-btn" type="submit">Submit</button>
                 </form>
             </div>

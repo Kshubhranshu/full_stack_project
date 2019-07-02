@@ -1,3 +1,5 @@
+//global variable for userid ie. mobile number
+
 // package
 const express = require("express");
 const mysql = require("mysql");
@@ -9,6 +11,8 @@ const fs = require('fs');
 const app = express();
 app.set('view engine','ejs')
 app.use(bodyparser.urlencoded({extended:false}))
+app.use(bodyparser.json());
+
 
 
 // creating connection to database
@@ -45,22 +49,9 @@ app.get('/home',function(req, res){
     res.render('index');
 });
 
-//route for admin login from index.html
-app.post("/admin/login",function (req,res) 
-{
-    let mobile = req.body.mobile;
-    let password = req.body.password;
-    if(mobile=="1234567890" && password=="admin"){
-        res.redirect("/admin") 
-        console.log(mobile,password);}
-    else
-    {   //route for home page from index.html
-        res.redirect('/home')
-    }
-});
 // ............................................................ADMIN SECTION...........................................................
 //route for admin login from index.html
-app.post("/admin/login",function (req,res) 
+app.post("/login",function (req,res) 
 {
     let mobile = req.body.mobile;
     let password = req.body.password;
@@ -69,10 +60,36 @@ app.post("/admin/login",function (req,res)
         console.log(mobile,password);}
     else
     {
-        res.render('index')
+        res.redirect("/")
     }
 });
 
+//route for viewing students detials
+app.get("/admin/view_students",function( 
+    req,res){
+    console.log(req.body);
+    let sql = 'select * from user'
+    let query = connection.query(sql,function(err,result){
+    if(err) throw err;
+    let student_data =[];
+
+        for (let i = 0; i < result.length; i++) {
+            let obj={
+                mobile:result[i].mobile,
+                name:result[i].name,
+                class:result[i].class,
+                password:result[i].password,
+            };
+            student_data.push(obj);
+            JSON.stringify(student_data);
+
+        } 
+    console.log(student_data);
+    res.render('view_students',{student_data:student_data})
+    });
+})
+
+//route for admin page
 app.get('/admin',function(req,res){
                 res.render('admin')
             });
@@ -179,6 +196,21 @@ app.get("/admin/view_notes",function(
 //................................................ADMIN SECTION ENDS........................................................................
 
 //................................................USER SECTION..............................................................................
+//route for admin login from index.html
+app.post("/register",function (req,res) 
+{
+    let mobile = req.body.mobile;
+    let password = req.body.password;
+    let select_class = req.body.select_class;
+    let name = req.body.name;
+    let sql = `insert into user(mobile,name,class,password) values("${mobile}","${name}","${select_class}","${password}")`;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+    })
+//validation of register data before inserting into mysql
+   
+});
+
 //route for about us page for users
 app.get('/about',function(req,res){
     let sql = 'select * from aboutus'
