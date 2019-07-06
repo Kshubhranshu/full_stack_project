@@ -1,5 +1,5 @@
 //global variable for userid ie. mobile number
-
+var studentData=[]
 // package
 const express = require("express");
 const mysql = require("mysql");
@@ -50,19 +50,12 @@ app.get('/home',function(req, res){
 });
 
 // ............................................................ADMIN SECTION...........................................................
-//route for admin login from index.html
-app.post("/login",function (req,res) 
-{
-    let mobile = req.body.mobile;
-    let password = req.body.password;
-    if(mobile=="1234567890" && password=="admin"){
-        res.redirect("/admin") 
-        console.log(mobile,password);}
-    else
-    {
-        res.redirect("/")
-    }
+//route for admin page
+app.get('/admin',function(req,res){
+    res.render('admin')
 });
+
+
 
 //route for viewing students detials
 app.get("/admin/view_students",function( 
@@ -81,19 +74,26 @@ app.get("/admin/view_students",function(
                 password:result[i].password,
             };
             student_data.push(obj);
+            studentData.push({mobile:result[i].mobile,password:result[i].password})
+            console.log(studentData)
             JSON.stringify(student_data);
-
         } 
-    console.log(student_data);
     res.render('view_students',{student_data:student_data})
     });
 })
 
-//route for admin page
-app.get('/admin',function(req,res){
-                res.render('admin')
-            });
-            
+
+//route for deleting student data 
+app.post("/admin/view_students/delete",function (req,res) 
+{
+    var id = req.body.id;
+    let sql = `DELETE FROM user WHERE mobile=${id} `;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/view_students");
+    })
+})
+           
 //route for viewing about us page content
     app.get("/admin/view_aboutus",function( 
         req,res){
@@ -133,7 +133,6 @@ app.post("/admin/view_aboutus/add_image",function (req,res)
 })
 
 //route for viewing videos
-
 app.get('/admin/view_videos',function(req,res){
     let sql = 'select * from videos'
     let query = connection.query(sql,function(err,result){
@@ -204,6 +203,9 @@ app.post("/register",function (req,res)
     let select_class = req.body.select_class;
     let name = req.body.name;
     let sql = `insert into user(mobile,name,class,password) values("${mobile}","${name}","${select_class}","${password}")`;
+    if (studentData.includes(mobile)) {
+        redirect('/');
+    }
     connection.query(sql,function(err,result){
         if(err) throw err;
     })
@@ -256,7 +258,26 @@ app.get("/notes",function(
 
     
 //................................................USER SECTION ENDS..............................................................................
-
+//route for admin login from index.html
+app.post("/login",function (req,res) 
+{
+    let mobile = req.body.mobile;
+    let password = req.body.password;
+    var temp = studentData.filter(function(item) { return item["mobile"] === mobile && item["password"] === password ; });
+    console.log(mobile,password,studentData)
+    if(mobile=="1234567890" && password=="admin"){
+        res.redirect("/admin") 
+        console.log(mobile,password);}
+    else
+    {   
+        // if (temp.length === 0) {
+        //     res.redirect('/')
+        // } else {
+        //     res.redirect('/home')
+        // }
+        res.redirect("/home")
+    }
+});
 
 // running server
 app.listen('2000',()=>{
