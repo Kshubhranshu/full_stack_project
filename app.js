@@ -1,5 +1,6 @@
 //global variable for userid ie. mobile number
-var studentData=[]
+const studentData=[]
+const port =  process.env.PORT || 2000
 // package
 const express = require("express");
 const mysql = require("mysql");
@@ -280,6 +281,6 @@ app.post("/login",function (req,res)
 });
 
 // running server
-app.listen('2000',()=>{
+app.listen(port,()=>{
     console.log("server running");
 });
