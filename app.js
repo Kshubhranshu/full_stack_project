@@ -1,5 +1,4 @@
 //global variable for userid ie. mobile number
-const studentData=[]
 const port =  process.env.PORT || 2000
 // package
 const express = require("express");

@@ -1,1 +1,1 @@
-web: nodemon app.js
+worder: node app.js
