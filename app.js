@@ -1,5 +1,5 @@
 //global variable for userid ie. mobile number
-const port =  process.env.PORT || 2000
+const port =  process.env.PORT || 2000;
 // package
 const express = require("express");
 const mysql = require("mysql");
