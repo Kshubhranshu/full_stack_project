@@ -11,8 +11,7 @@ const fs = require('fs');
 const app = express();
 app.set('view engine','ejs')
 app.use(bodyparser.urlencoded({extended:false}))
-app.use(bodyparser.json());
-
+    
 
 
 // creating connection to database
