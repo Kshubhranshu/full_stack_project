@@ -73,8 +73,6 @@ app.get("/admin/view_students",function(
                 password:result[i].password,
             };
             student_data.push(obj);
-            studentData.push({mobile:result[i].mobile,password:result[i].password})
-            console.log(studentData)
             JSON.stringify(student_data);
         } 
     res.render('view_students',{student_data:student_data})
@@ -202,9 +200,10 @@ app.post("/register",function (req,res)
     let select_class = req.body.select_class;
     let name = req.body.name;
     let sql = `insert into user(mobile,name,class,password) values("${mobile}","${name}","${select_class}","${password}")`;
-    if (studentData.includes(mobile)) {
-        redirect('/');
-    }
+    // if (studentData.includes(mobile)) {
+    //     redirect('/');
+    // }
+    res.redirect("/")
     connection.query(sql,function(err,result){
         if(err) throw err;
     })
@@ -262,8 +261,8 @@ app.post("/login",function (req,res)
 {
     let mobile = req.body.mobile;
     let password = req.body.password;
-    var temp = studentData.filter(function(item) { return item["mobile"] === mobile && item["password"] === password ; });
-    console.log(mobile,password,studentData)
+    // var temp = studentData.filter(function(item) { return item["mobile"] === mobile && item["password"] === password ; });
+    console.log(mobile,password)
     if(mobile=="1234567890" && password=="admin"){
         res.redirect("/admin") 
         console.log(mobile,password);}
