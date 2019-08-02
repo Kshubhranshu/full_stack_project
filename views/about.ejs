@@ -9,6 +9,28 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
 </head>
+<style>
+    .content img{
+        margin-left: 10px;
+        float: left;
+        width: 30%;
+        
+    }
+    .content p{
+        padding-left: 10px;
+        font-size:1.5em;
+    }
+    @media screen and (max-width: 800px) {
+    .content img {
+    float: none;
+    width: 60%;
+  }
+  .content p{
+      font-size: 1em
+  }
+}
+
+</style>
 <body>
     <!-- <div class="notification" style="text-align: center;background:mintcream;color: black;">Hello | Kumar</div> -->
     <header>
@@ -31,11 +53,10 @@
         </div>
     </header>
 
-    <div class="content" style="text-align: center;">
-        <h2 class="text1">About Us</h2>
-
-        <img src="<%- location %>" alt="image" style="width: 35%;">
-        <p class="text2"> <%= temp %> </p>
+    <div class="content" style="text-align: center;margin: 0 auto;">
+        <h1 class="text1">About Us</h1>
+        <img src="<%- location %>" alt="image">
+        <p class="text2" style="width:89%;text-align: center;margin: 0 auto;padding-top: 5%"> <%= temp %> </p>
     </div>
     
     <!-- <footer>

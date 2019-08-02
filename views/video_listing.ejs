@@ -7,12 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Responsive Design | Welcome</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- style -->
     <style>
         .container-video{
             text-align: center;
+            margin: 15px;
         }
         .container-video video{
             width: 25%;
@@ -31,6 +32,23 @@
                 width: 70%;
             }
         }
+        form{
+            color: black;
+            margin: 10px;
+        }
+        .go-button{
+            background: green;
+            font-size: 99%;
+            border-radius: 5px;
+            height: 27px;
+            width: 10%;
+            color: white;
+        }
+        .video{
+            height
+            background:white;
+        }
+        
     </style>
 
 </head>
@@ -49,24 +67,19 @@
                     <li><a href= "/about">About Us</a></li>
                     <li><a href= "/video_listing">Videos</a></li>
                     <li><a href= "/notes">Notes</a></li>
-                    <li><a href= "#">Quiz</a></li>
+                    <li><a href= "/quiz">Quiz</a></li>
                     <li><a href= "#">Test</a></li>
                </ul>
            </nav>
         </div>
     </header>
     <div class="container-video">
-        <h3>Subject #1 <hr></h3>
+        
         <% video.forEach(function(data){ %>
-            <a href="#"><video src="<%- data %>" controls></video></a>
+            <a href="/video_listing/video_playback" class="video" style="text-decoration: none;"><video src="<%- data %>"></video></a>
         <% }) %>
     </div>
-    <div class="container-video">
-        <h3>Subject #2 <hr></h3>
-        <% video.forEach(function(data){ %>
-            <a href="#"><video src="<%- data %>" controls></video></a>
-        <% }) %>
-    </div>
+    
     
     
 

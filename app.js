@@ -180,12 +180,108 @@ app.post("/admin/view_videos/delete",function (req,res)
 })
 
 //route for viewing notes
-var readme = fs.readFileSync('notes.txt', 'utf8')
-console.log(readme);
+var readme = fs.readFileSync('notes.txt', 'utf8');
 app.get("/admin/view_notes",function( 
     req,res){
     res.render('view_notes',{readme:readme})
     })
+
+//route for view all quiz questions
+app.get('/admin/view_quiz',function(req,res){
+    let sql = 'select * from quiz; select * from quiz_subject; select * from quiz_topic';
+    let query = connection.query(sql,[3,1],function(err,result){
+        if(err) throw err;
+        let quiz_data =[];
+        let quiz_subject = [];
+        let quiz_topic = [];
+        
+        for (var i = 0; i < result[0].length; i++) {
+            let obj={
+                question_id: result[0][i].question_id,
+                subject : result[0][i].subject,
+                topic : result[0][i].topic,
+                class : result[0][i].class,
+                question : result[0][i].question,
+                option1 : result[0][i].option1,
+                option2 : result[0][i].option2,
+                option3 : result[0][i].option3,
+                option4 : result[0][i].option4,
+                correct_option : result[0][i].correct_option,
+                explanation : result[0][i].explanation,
+            };
+
+            for (var i = 0; i < result[1].length; i++) {
+                quiz_subject.push(result[1][i].subject)
+            } 
+            for (var i = 0; i < result[2].length; i++) {
+                quiz_topic.push(result[2][i].topic)
+            } 
+        
+            quiz_data.push(obj);
+            console.log(quiz_data)
+            console.log(quiz_subject)
+            console.log(quiz_topic)
+        } 
+        res.render('view_quiz',{quiz_data:quiz_data, quiz_subject:quiz_subject, quiz_topic: quiz_topic})
+        // data.forEach(element => {
+        //     console.log(element)
+        // });
+    })
+})
+
+//route for adding quiz
+app.post("/admin/view_quiz/add",function (req,res) 
+{
+    var add_class = req.body.class;
+    var add_topic = req.body.topic;
+    var add_subject = req.body.subject;
+    var add_question = req.body.question;
+    var add_option1 = req.body.option1;
+    var add_option2 = req.body.option2;
+    var add_option3 = req.body.option3;
+    var add_option4 = req.body.option4;
+    var add_correct_option = req.body.correct_option;
+    var add_explanation = req.body.explanation;
+    let sql = `insert into quiz(question, option1, option2, option3, option4, correct_option, explanation, class, topic, subject) values("${add_question}","${add_option1}","${add_option2}","${add_option3}","${add_option4}","${add_correct_option}","${add_explanation}","${add_class}","${add_topic}","${add_subject}");ALTER TABLE quiz DROP question_id; ALTER TABLE quiz ADD question_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY`;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/view_quiz");
+    })
+})
+
+//route for deleting quiz question
+app.post("/admin/view_quiz/delete",function (req,res) 
+{
+    var question_id = req.body.question_id;
+    let sql = `DELETE FROM quiz WHERE question_id=${question_id};ALTER TABLE quiz DROP question_id; ALTER TABLE quiz ADD question_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY`;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/view_quiz");
+    })
+})
+
+app.post("/admin/view_quiz/add_subject",function (req,res) 
+{
+    let add_subject = req.body.subject;
+    let sql = `insert into quiz_subject(subject) values("${add_subject}")`;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/view_quiz");
+    })
+})
+
+app.post("/admin/view_quiz/add_topic",function (req,res) 
+{
+    let add_topic = req.body.topic;
+    let sql = `insert into quiz_topic(topic) values("${add_topic}")`;
+    connection.query(sql,function(err,result){
+        if(err) throw err;
+        res.redirect("/admin/view_quiz");
+    })
+})
+
+
+
     
 
 
@@ -241,6 +337,8 @@ app.get('/video_listing',function(req,res){
             })
         })
 
+
+
 //test page for users
 app.get('/test',function(req,res){
     res.render('test')
@@ -252,6 +350,43 @@ app.get("/notes",function(
     req,res){
     res.render('notes',{readme:readme})
     })
+
+//video playback section
+app.get("/video_listing/video_playback",function(req,res){
+    res.render("video_playback")
+})
+
+//quiz page
+app.get("/quiz",function (req,res){
+        let sql = 'select * from quiz_subject;select * from quiz_topic';
+        let query = connection.query(sql,[2,1],function(err,results){
+            if(err) throw err;
+            console.log(results[0][0].subject);
+            console.log(results[1])
+
+            subject = [];topic = [];
+            for (var i = 0; i < results[0].length; i++) {
+                subject.push(results[0][i].subject)
+            } 
+            for (var i = 0; i < results[1].length; i++) {
+                topic.push(results[1][i].topic)
+            } 
+            console.log(subject) 
+            console.log(topic) 
+            res.render("quiz",{subject:subject, topic:topic})
+
+            })
+})
+
+//quiz page on starting the quiz
+app.post("/quiz/start",function(req, res){
+    res.render("start_quiz_page")
+})
+
+//video playback section
+app.get("/quiz/start",function(req,res){
+    res.render("start_quiz_page")
+})
 
 
     
@@ -276,6 +411,7 @@ app.post("/login",function (req,res)
         res.redirect("/home")
     }
 });
+
 
 // running server
 app.listen(port,()=>{

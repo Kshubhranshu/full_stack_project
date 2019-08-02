@@ -17,7 +17,7 @@
         }
         video{
             width:30%;
-            height: 10%;
+            height: 20%;
         }
        .video-border{
            text-decoration: none;
@@ -29,7 +29,16 @@
             text-align: center;
             padding-left: 25%;    
         }
-        
+        table{
+            height: 99%;
+            border-collapse: collapse;
+            color: white;
+            
+        }
+        td,th{
+            border: 1px solid white;
+            text-align: center;
+        }
 
 
     </style>
@@ -64,11 +73,29 @@
         <button >View AboutUs</button>
         <button>View Videos</button>
         <button>View Notes</button>
-        <button>View Test</button>
+        <button>View Quiz</button>
     </div>
-    <div style="text-align: center;margin-top:4%;font-size:20px;" class="video-container"> <%data.forEach(function(data){ %>
+    <!-- <div style="text-align: center;margin-top:4%;font-size:20px;" class="video-container"> <%data.forEach(function(data){ %>
         <a href="#" class="video-border"><video src="<%- data.video_location %>" controls></video><span style="color: red">{video_id:<%= data.video_id %>}</span>&nbsp;{class:<%= data.class %>} {subject:<%= data.subject %>}   </a>
-        <% }) %> </div>
+        <% }) %> 
+    </div> -->
+    <table align="center" border="1">
+        <tr style="color: red;">
+                <th>Video Id</th>
+                <th>Class</th>
+                <th>Subject</th>
+                <th>Video</th>
+        </tr>
+        <% for(var i=0; i < data.length; i++) { %>
+            <tr>
+                <td style="width: 80px;"><%- data[i].video_id %></td>
+                <td style="width: 80px;"><%- data[i].class %></td>
+                <td style="width: 80px;"><%- data[i].subject %></td>
+                <td><video src="<%- data[i].video_location %>" controls></video></td>
+            </tr>
+        <% } %>
+</table>
+
     <div style="text-align: center;margin-top:4%;font-size:20px;"> 
         <form action="/admin/view_videos/add" method="POST">
             <input type="text" placeholder="enter class for eg: 5" name="class">

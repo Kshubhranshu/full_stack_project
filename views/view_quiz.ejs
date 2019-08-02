@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- meta tag description author for SEO -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Responsive Design | Welcome</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+    <style>
+        button{
+            font-size: 15px;
+            margin: 3px;
+            cursor: pointer;
+        }
+        td, th {
+            border: 1px solid white;
+        }
+        table {
+        border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="notification" style="text-align: center;background:mintcream;color: black;">Hello | Kumar</div> -->
+    <header>
+        <div class="container">
+            <!-- logo -->
+           <div id="branding">
+               <h1><span class="highlight">IIY</span>Software</h1>
+           </div>
+           <!-- nav bar -->
+           <nav class="topnav">
+               <ul>
+                   <li><a href= "#">Home</a></li>
+                   <li><a href= "#">About Us</a></li>
+                   <li><a href= "#">Videos</a></li>
+                   <li><a href= "#">Notes</a></li>
+                   <li><a href= "#">Quiz</a></li>
+                   <li><a href= "#">Test</a></li>
+                   
+               </ul>
+           </nav>
+        </div>
+    </header>
+
+    <div class="content" style="text-align: center;">
+        <h2 class="text1">Welcome Admin | View Quiz</h2>
+        <button onclick="window.location.href='/admin'" style="background: green;">Home</button>
+        <button>View Student Details</button>
+        <button >View AboutUs</button>
+        <button>View Videos</button>
+        <button>View Notes</button>
+        <button>View Quiz</button>
+       <table align="center" width="90%" border="1">
+                    <tr style="color: red;">
+                            <th>Question Id</th>
+                            <th>Question</th>
+                            <th>option1</th>
+                            <th>option2</th>
+                            <th>option3</th>
+                            <th>option4</th>
+                            <th>Correct Answer</th>
+                            <th>Explanation</th>
+                            <th>Class</th>
+                            <th>Topic</th>
+                            <th>Subject</th>
+                    </tr>
+                    <% for(var i=0; i < quiz_data.length; i++) { %>
+                        <tr>
+                            <td><%= quiz_data[i].question_id%></td>
+                            <td><%= quiz_data[i].question%></td>
+                            <td><%= quiz_data[i].option1%></td>
+                            <td><%= quiz_data[i].option2%></td>
+                            <td><%= quiz_data[i].option3%></td>
+                            <td><%= quiz_data[i].option4%></td>
+                            <td><%= quiz_data[i].correct_option%></td>
+                            <td><%= quiz_data[i].explanation%></td>
+                            <td><%= quiz_data[i].class%></td>
+                            <td><%= quiz_data[i].topic%></td>
+                            <td><%= quiz_data[i].subject%></td>
+                        </tr>
+                    <% } %>
+        </table>
+
+        
+
+
+        <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+                <form action="/admin/view_quiz/add" method="POST">
+                    <input type="text" placeholder="enter the class" name="class">
+                    <input type="text" placeholder="enter the topic" name="topic">
+                    <input type="text" placeholder="enter the subject" name="subject">
+                    <input type="text" placeholder="enter the new question" name="question">
+                    <input type="text" placeholder="enter the option 1" name="option1">
+                    <input type="text" placeholder="enter the option 2" name="option2">
+                    <input type="text" placeholder="enter the option 3" name="option3">
+                    <input type="text" placeholder="enter the option 4" name="option4">
+                    <input type="text" placeholder="enter the correct answer from the options" name="correct_option">
+                    <input type="text" placeholder="enter the explanation for the correct answer" name="explanation">
+                    <button style="background: green;">Upload Question</button>
+                </form>
+        </div>
+        
+        <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+                <form action="/admin/view_quiz/delete" method="POST">
+                    <input type="text" placeholder="enter the question id" name="question_id">
+                    <button style="background: red;">Delete Question</button>
+                </form>
+        </div>
+        <hr>
+
+<table align="center" width="90%" border="1">
+    <tr style="color: red;">
+            <th>Subject Id</th>
+            <th>Subject</th>
+    </tr>
+    <% for(var i=0; i < quiz_subject.length; i++) { %>
+        <tr>
+            <td><%= i+1 %></td>
+            <td><%= quiz_subject[i] %></td>
+        </tr>
+    <% } %>
+</table>
+        <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+            <form action="/admin/view_quiz/add_subject" method="POST">
+                <input type="text" placeholder="enter the subject eg: English or Hindi or Science NOTE: make sure the first letter is in upper case" name="subject">
+                <button style="background: green;">Add Subject</button>
+            </form>
+        </div>
+        <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+            <form action="/admin/view_quiz/delete_subject" method="POST">
+                <input type="text" placeholder="enter the subject id" name="subject_id">
+                <button style="background: red;">Delete Subject</button>
+            </form>
+    </div>
+    <hr>
+    <table align="center" width="90%" border="1">
+        <tr style="color: red;">
+                <th>Topic Id</th>
+                <th>Topic</th>
+        </tr>
+        <% for(var i=0; i < quiz_topic.length; i++) { %>
+            <tr>
+                <td><%= i+1 %></td>
+                <td><%= quiz_topic[i] %></td>
+            </tr>
+        <% } %>
+    </table>
+
+    <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+        <form action="/admin/view_quiz/add_topic" method="POST">
+            <input type="text" placeholder="enter the topic eg: Reflection or Introduction to elecrticity NOTE: make sure the first letter is in upper case" name="topic">
+            <button style="background: green;">Add Topic</button>
+        </form>
+    </div>
+    <div style="text-align: center;margin-top:4%;font-size:20px;"> 
+        <form action="/admin/view_quiz/delete_topic" method="POST">
+            <input type="text" placeholder="enter the topic id" name="topic_id">
+            <button style="background: red;">Delete Topic</button>
+        </form>
+</div>
+
+    
+    
+    <!-- <footer>
+        <p>Kumar Design <i class="fa fa-heart" style="font-size:15px;color: red;"></i> Copyright &copy; 2019</p>
+    </footer> -->
+<script src="js/script.js"></script>
+
+    
+</body>
+</html>
