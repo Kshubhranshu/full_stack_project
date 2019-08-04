@@ -351,4 +351,23 @@ option{
     margin-top:30px;
 }
 /* ................................ */
+#page-wrap{ width: 500px; margin: 0 auto; }
 
+
+
+
+#quiz ol li div {
+    padding-left: 30px;
+}
+
+#quiz h3 {
+   font-size: 18px; color: #666;
+}
+
+#results {
+    font: 44px Georgia, Serif;
+}
+#quiz input:hover{
+  background:green;
+  color: white;
+}
