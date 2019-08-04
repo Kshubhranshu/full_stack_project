@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Responsive Design | Welcome</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- style -->
     <style>
@@ -145,18 +145,19 @@
         </div>
     </header>
     <div class="quiz-container">
-    <form action="/quiz/start" method="POST">
-        <select id="soflow">
+        <h3 style="text-align: center;"><%-temp%></h3>
+    <form action="/quiz" method="POST">
+        <select id="soflow" name="select_subject">
                 <option>Select Subject</option>
                 <% subject.forEach(function(subject){ %>
-                    <option value=""><%- subject %></option>
+                    <option value="<%- subject %>" ><%- subject %></option>
                 <% }) %>
         </select>
     
-        <select id="soflow">
+        <select id="soflow" name="select_topic">
             <option>Select Subject</option>
                 <% topic.forEach(function(topic){ %>
-                    <option value=""><%- topic %></option>
+                    <option value="<%- topic %>"><%- topic %></option>
                 <% }) %>
         </select>
     <button style="border-radius: 5px;padding: 5px;font-size: 15px;">Start</button>

@@ -361,8 +361,8 @@ app.get("/quiz",function (req,res){
         let sql = 'select * from quiz_subject;select * from quiz_topic';
         let query = connection.query(sql,[2,1],function(err,results){
             if(err) throw err;
-            console.log(results[0][0].subject);
-            console.log(results[1])
+            // console.log(results[1]); //shows all the subjects
+            // console.log(results[0]);//shows all the topics
 
             subject = [];topic = [];
             for (var i = 0; i < results[0].length; i++) {
@@ -371,19 +371,33 @@ app.get("/quiz",function (req,res){
             for (var i = 0; i < results[1].length; i++) {
                 topic.push(results[1][i].topic)
             } 
-            console.log(subject) 
-            console.log(topic) 
-            res.render("quiz",{subject:subject, topic:topic})
+            res.render("quiz",{subject:subject, topic:topic, temp:""})
 
             })
 })
 
 //quiz page on starting the quiz
-app.post("/quiz/start",function(req, res){
-    res.render("start_quiz_page")
+app.post("/quiz",function(req, res){
+    let select_subject = req.body.select_subject;
+    let select_topic = req.body.select_topic;
+    console.log(select_subject,select_topic)
+    let sql = `select question,option1,option2,option3,option4 from quiz where subject="${select_subject}" and topic="${select_topic}"`;
+    
+    let query = connection.query(sql,function(err,result){
+        if(typeof result !== 'undefined' && result.length == 0){
+            let temp="No Quiz found related to your selection";
+            res.render("quiz",{temp: temp});
+        };
+
+        console.log(result)
+        
+
+        })
 })
 
-//video playback section
+
+
+//quiz startup page
 app.get("/quiz/start",function(req,res){
     res.render("start_quiz_page")
 })
