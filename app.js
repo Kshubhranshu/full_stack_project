@@ -417,11 +417,6 @@ app.post("/login",function (req,res)
         console.log(mobile,password);}
     else
     {   
-        // if (temp.length === 0) {
-        //     res.redirect('/')
-        // } else {
-        //     res.redirect('/home')
-        // }
         res.redirect("/home")
     }
 });
@@ -429,5 +424,5 @@ app.post("/login",function (req,res)
 
 // running server
 app.listen(port,()=>{
-    console.log("server running");
+    console.log("server running at localhost:",port);
 });
